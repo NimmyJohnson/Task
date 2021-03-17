@@ -1,0 +1,110 @@
+<div class="col-lg-12">
+    <div class="card-content">
+        <form [formGroup]="formGroup">
+            <div class="form-body">
+                <h4 class="form-section" style="font-weight: bold; font-size: medium;">Staff Form</h4>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Name <code class="required">*</code> </label> &nbsp;&nbsp;
+                            <input type="text" id="name" oninput="this.value = this.value.replace(/^\s+/g, '');"
+                                maxlength="100" class="form-control form-control-sm" formControlName="name" name="name">
+                            <small *ngIf="name.errors?.required && (name.dirty || name.touched)" style="color: red;">
+                                Name
+                                is required</small>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="gender">Gender </label>&nbsp;&nbsp;
+                            <div>
+                                <input id="male" type="radio" value="male" name="gender" formControlName="gender">
+                                <label for="male">Male</label>
+                            </div>
+
+                            <div>
+                                <input id="female" type="radio" value="female" name="gender" formControlName="gender">
+                                <label for="female">Female</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="mobile">Mobile <code class="required">*</code> </label>&nbsp;&nbsp;
+                            <input formControlName="mobile" id="mobile" type="text" class="form-control" maxlength="10">
+                            <small *ngIf="mobile.touched && mobile.invalid" class="alert alert-danger">
+                                <div *ngIf="mobile.errors?.required" style="color: red;">Mobile Number is required.
+                                </div>
+                                <div *ngIf="mobile.errors?.pattern" style="color: red;">Please, Enter vaild Number.
+                                </div>
+                            </small>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="mobile">Position <code class="required">*</code> </label>&nbsp;&nbsp;
+                            <select formControlName="post">
+                                <option [ngValue]="null" disabled>--Select--</option>
+                                <option *ngFor="let post of positions" [ngValue]="post.name">{{post.name}}
+                                </option>
+                            </select>
+                            <small *ngIf="post.errors?.required && (post.dirty || post.touched)"
+                                style="color: red;">
+                                Position is required</small>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="mobile">Country <code class="required">*</code> </label>&nbsp;&nbsp;
+                            <select formControlName="country">
+                                <option [ngValue]="null" disabled>--Select--</option>
+                                <option *ngFor="let country of countries" [ngValue]="country.name">{{country.name}}
+                                </option>
+                            </select>
+                            <small *ngIf="country.errors?.required && (country.dirty || country.touched)"
+                                style="color: red;">
+                                Country is required</small>
+                        </div>
+                    </div>
+                </div>
+                <br> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                <button type="submit" (click)="onSubmit()">{{caption}}</button>
+            </div>
+        </form>
+        <br>
+        <div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Sl.No.</th>
+                        <th style="text-align: left;">Name</th>
+                        <th style="text-align: left;">Gender</th>
+                        <th style="text-align: left;">Mobile</th>
+                        <th style="text-align: left;">Position</th>
+                        <th style="text-align: left;">Country</th>
+                        <th style="text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items; let i=index">
+                        <td style="text-align: center;"> {{i+1}} </td>
+                        <td style="text-align: left;"> {{item.name}} </td>
+                        <td style="text-align: left;"> {{item.gender}} </td>
+                        <td style="text-align: left;"> {{item.mobile}} </td>
+                        <td style="text-align: left;"> {{item.post}} </td>
+                        <td style="text-align: left;"> {{item.country}} </td>
+
+                        <a (click)="onEdit(item.id)" style="cursor: pointer; color: blue;">Edit</a> |
+                        <a (click)="onDelete(item)" style="cursor: pointer; color: blue;">Delete</a>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
